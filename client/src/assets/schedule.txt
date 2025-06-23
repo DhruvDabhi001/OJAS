@@ -1,0 +1,11 @@
+ADMIN SIDE =>
+
+accepted than toast alreday accpeted
+
+USER SIDE =>
+
+update profile : moveble
+
+EXTRA =>
+
+google login

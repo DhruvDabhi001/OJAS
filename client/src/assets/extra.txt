@@ -1,0 +1,100 @@
+import React, { useState } from 'react';
+
+const LoginSignup = () => {
+  const [isSignUp, setIsSignUp] = useState(false);
+
+  return (
+    <div
+      className={`relative w-[768px] max-w-full min-h-[480px] bg-white rounded-[30px] shadow-lg overflow-hidden transition-all duration-500 ${
+        isSignUp ? 'signup-mode' : ''
+      }`}
+    >
+      {/* Sign Up Form */}
+      <div
+        className={`absolute top-0 h-full w-1/2 p-10 flex flex-col items-center justify-center transition-all duration-500 ${
+          isSignUp ? 'translate-x-full opacity-100 z-10' : 'opacity-0 z-0'
+        }`}
+      >
+        <form className="w-full flex flex-col items-center">
+          <h1 className="text-2xl font-bold mb-4">Create Account</h1>
+          <div className="flex gap-2 mb-4">
+            <a href="#" className="border p-2 rounded text-gray-600">
+              <i className="fab fa-google-plus-g" />
+            </a>
+            <a href="#" className="border p-2 rounded text-gray-600">
+              <i className="fab fa-facebook-f" />
+            </a>
+            <a href="#" className="border p-2 rounded text-gray-600">
+              <i className="fab fa-github" />
+            </a>
+            <a href="#" className="border p-2 rounded text-gray-600">
+              <i className="fab fa-linkedin-in" />
+            </a>
+          </div>
+          <span className="text-sm mb-2">or use your email for registration</span>
+          <input type="text" placeholder="Name" className="input-style" />
+          <input type="email" placeholder="Email" className="input-style" />
+          <input type="password" placeholder="Password" className="input-style" />
+          <button className="btn-style mt-4">Sign Up</button>
+        </form>
+      </div>
+
+      {/* Sign In Form */}
+      <div
+        className={`absolute top-0 h-full w-1/2 p-10 flex flex-col items-center justify-center transition-all duration-500 ${
+          isSignUp ? 'translate-x-full opacity-0 z-0' : 'opacity-100 z-10'
+        }`}
+      >
+        <form className="w-full flex flex-col items-center">
+          <h1 className="text-2xl font-bold mb-4">Sign In</h1>
+          <div className="flex gap-2 mb-4">
+            <a href="#" className="border p-2 rounded text-gray-600">
+              <i className="fab fa-google-plus-g" />
+            </a>
+            <a href="#" className="border p-2 rounded text-gray-600">
+              <i className="fab fa-facebook-f" />
+            </a>
+            <a href="#" className="border p-2 rounded text-gray-600">
+              <i className="fab fa-github" />
+            </a>
+            <a href="#" className="border p-2 rounded text-gray-600">
+              <i className="fab fa-linkedin-in" />
+            </a>
+          </div>
+          <span className="text-sm mb-2">or use your email password</span>
+          <input type="email" placeholder="Email" className="input-style" />
+          <input type="password" placeholder="Password" className="input-style" />
+          <a href="#" className="text-sm text-gray-500 mt-2">Forget Your Password?</a>
+          <button className="btn-style mt-4">Sign In</button>
+        </form>
+      </div>
+
+      {/* Toggle Panels */}
+      <div
+        className={`absolute top-0 left-1/2 w-1/2 h-full bg-gradient-to-r from-indigo-500 to-indigo-700 text-white flex flex-col items-center justify-center text-center px-6 transition-all duration-500 ${
+          isSignUp ? '-translate-x-full rounded-r-[150px]' : 'rounded-l-[150px]'
+        }`}
+      >
+        {isSignUp ? (
+          <div>
+            <h1 className="text-2xl font-bold mb-2">Welcome Back!</h1>
+            <p className="mb-4">Enter your personal details to use all site features</p>
+            <button onClick={() => setIsSignUp(false)} className="btn-style bg-transparent border-white border">
+              Sign In
+            </button>
+          </div>
+        ) : (
+          <div>
+            <h1 className="text-2xl font-bold mb-2">Hello, Friend!</h1>
+            <p className="mb-4">Register with your personal details to use all site features</p>
+            <button onClick={() => setIsSignUp(true)} className="btn-style bg-transparent border-white border">
+              Sign Up
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default LoginSignup;
