@@ -7,11 +7,11 @@ function Hom() {
   const [username, setUsername] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
 
-    if (token) {
+    if (token && token.split('.').length === 3) { // ✅ Check format
       try {
-        const decoded = jwtDecode(token); // ✅ Use correctly
+        const decoded = jwtDecode(token);
         setUsername(decoded.fullName || decoded.email || "User");
       } catch (err) {
         console.error("Invalid token:", err);
@@ -19,9 +19,11 @@ function Hom() {
         navigate("/login");
       }
     } else {
+      localStorage.clear(); // ✅ Clear invalid token
       navigate("/login");
     }
   }, [navigate]);
+
 
   const handleLogout = () => {
     localStorage.clear();
