@@ -13,7 +13,10 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-app.use(cors());
+app.use(cors({
+  origin: "https://ojas-frontend.onrender.com",
+  credentials: true
+}));
 app.use(express.json());
 
 // Routes
