@@ -9,7 +9,7 @@ function AdmReq() {
 
   const fetchApplications = async () => {
     try {
-      const res = await axios.get("${process.env.REACT_APP_BACKEND_URL}/api/applications");
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/applications`);
       setApplications(res.data);
     } catch (err) {
       toast.error("Failed to fetch applications");

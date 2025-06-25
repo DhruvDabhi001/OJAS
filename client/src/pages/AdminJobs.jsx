@@ -23,7 +23,7 @@ function Jobs() {
 
   const fetchJobs = async () => {
     try {
-      const res = await axios.get("${process.env.REACT_APP_BACKEND_URL}/api/jobs");
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/jobs`);
       setJobs(res.data);
       setLoading(false);
     } catch (error) {

@@ -45,7 +45,7 @@ function ProfileUpdate() {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.put('http://localhost:5000/api/user/update', formData, {
+      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/user/update`, formData, {
         headers: {
           Authorization: `Bearer ${token}` // ✅ Auth header here too
         }
