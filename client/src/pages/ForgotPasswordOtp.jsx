@@ -11,7 +11,7 @@ export default function ForgotPassword() {
 
   const sendOtp = async () => {
     try {
-      await axios.post("http://localhost:5000/api/auth/forgot-password", {
+      await axios.post("${process.env.REACT_APP_BACKEND_URL}/api/auth/forgot-password", {
         email,
         newPassword,
       });
@@ -24,7 +24,7 @@ export default function ForgotPassword() {
 
   const verifyOtp = async () => {
     try {
-      await axios.post("http://localhost:5000/api/auth/verify-otp", {
+      await axios.post("${process.env.REACT_APP_BACKEND_URL}/api/auth/verify-otp", {
         email,
         otp,
       });

@@ -23,7 +23,7 @@ function Jobs() {
 
   const fetchJobs = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/jobs");
+      const res = await axios.get("${process.env.REACT_APP_BACKEND_URL}/api/jobs");
       setJobs(res.data);
       setLoading(false);
     } catch (error) {
@@ -37,7 +37,7 @@ function Jobs() {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/jobs/${jobId}`);
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/jobs/${jobId}`);
       toast.success("Job deleted");
       fetchJobs(); // Refresh list
     } catch (error) {
@@ -65,7 +65,7 @@ function Jobs() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/jobs/${editJobId}`, editFormData);
+      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/jobs/${editJobId}`, editFormData);
       toast.success("Job updated");
       setEditJobId(null);
       fetchJobs();

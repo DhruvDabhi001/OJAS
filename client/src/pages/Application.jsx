@@ -14,7 +14,7 @@ function Applications() {
         setLoading(true);
         setError(null);
 
-        const res = await axios.get(`http://localhost:5000/api/my-applications`, {
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/my-applications`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

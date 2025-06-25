@@ -42,7 +42,7 @@ function Jobs() {
       };
 
       const response = await axios.post(
-        'http://localhost:5000/api/apply',
+        '${process.env.REACT_APP_BACKEND_URL}/api/apply',
         applicationData,
         {
           headers: {
@@ -67,7 +67,7 @@ function Jobs() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/jobs");
+        const res = await axios.get("${process.env.REACT_APP_BACKEND_URL}/api/jobs");
         setJobs(res.data);
       } catch (err) {
         toast.error("Failed to fetch jobs");
