@@ -2,7 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const sendEmail = require('../utils/sendEmail');
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Signup Controller
 exports.signup = async (req, res) => {
@@ -49,7 +49,7 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: 'Invalid password' });
 
     // 🔐 Generate JWT token
-    const token = jwt.sign({ id: user._id, fullName: user.fullName, email: user.email,isAdmin: user.isAdmin }, JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ id: user._id, fullName: user.fullName, email: user.email, isAdmin: user.isAdmin }, JWT_SECRET, { expiresIn: "1h" });
 
     res.status(200).json({
       message: 'Login successful',
