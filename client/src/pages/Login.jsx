@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: '', password: '' });
-  
+
   const handleChange = (e) => {
     setFormData(prev => ({
       ...prev,
@@ -26,7 +26,6 @@ function Login() {
       // After successful login
       
       localStorage.setItem("token", res.data.token);
-
 
       if (res.data.isAdmin) {
         localStorage.setItem('isAdmin', 'true');
