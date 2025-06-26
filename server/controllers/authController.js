@@ -66,23 +66,29 @@ exports.login = async (req, res) => {
 
 // Step 1: Send OTP
 exports.forgotPassword = async (req, res) => {
-  const { email, newPassword } = req.body;
-  const user = await User.findOne({ email });
+  try {
+    const { email, newPassword } = req.body;
+    const user = await User.findOne({ email });
 
-  if (!user) return res.status(404).json({ message: 'User not found' });
+    if (!user) return res.status(404).json({ message: 'User not found' });
 
-  const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  user.otp = otp;
-  user.otpExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes
-  user.newPassword = await bcrypt.hash(newPassword, 10); // temp password
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    user.otp = otp;
+    user.otpExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes
+    user.newPassword = await bcrypt.hash(newPassword, 10); // temp password
 
-  await user.save();
+    await user.save();
 
-  await sendEmail(email, "Your OTP for Password Reset", `Your OTP is: ${otp}`);
-  res.json({ message: "OTP sent to email" });
+    await sendEmail(email, "Your OTP for Password Reset", `Your OTP is: ${otp}`);
+    res.json({ message: "OTP sent to email" });
 
-  console.log("OTP Sent:", user.otp);
-  console.log("Expiry:", user.otpExpiry, Date.now());
+    console.log("OTP Sent:", user.otp);
+    console.log("Expiry:", user.otpExpiry, Date.now());
+  }
+  catch (err) {
+    console.error("Forgot Password Error:", err);
+    res.status(500).json({ message: "Failed to send OTP", error: err.message });
+  }
 };
 
 // Step 2: Verify OTP
