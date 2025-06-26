@@ -4,24 +4,24 @@ const sendEmail = require('../utils/sendEmail');
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// Signup Controller
-exports.signup = async (req, res) => {
-  const { fullName, email, password } = req.body;
-  try {
-    const existingUser = await User.findOne({ email });
-    if (existingUser)
-      return res.status(400).json({ message: "User already exists" });
+// // Signup Controller
+// exports.signup = async (req, res) => {
+//   const { fullName, email, password } = req.body;
+//   try {
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser)
+//       return res.status(400).json({ message: "User already exists" });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ fullName, email, password: hashedPassword });
+//     const hashedPassword = await bcrypt.hash(password, 10);
+//     const user = await User.create({ fullName, email, password: hashedPassword });
 
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
+//     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
 
-    res.status(201).json({ token, user: { fullName: user.fullName, email: user.email } });
-  } catch (err) {
-    res.status(500).json({ message: "Server error" });
-  }
-};
+//     res.status(201).json({ token, user: { fullName: user.fullName, email: user.email } });
+//   } catch (err) {
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
 
 // Login Controller
 exports.login = async (req, res) => {
@@ -63,46 +63,46 @@ exports.login = async (req, res) => {
   }
 };
 
-// Step 1: Send OTP
-exports.forgotPassword = async (req, res) => {
-  const { email, newPassword } = req.body;
-  const user = await User.findOne({ email });
+// // Step 1: Send OTP
+// exports.forgotPassword = async (req, res) => {
+//   const { email, newPassword } = req.body;
+//   const user = await User.findOne({ email });
 
-  if (!user) return res.status(404).json({ message: 'User not found' });
+//   if (!user) return res.status(404).json({ message: 'User not found' });
 
-  const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  user.otp = otp;
-  user.otpExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes
-  user.newPassword = await bcrypt.hash(newPassword, 10); // temp password
+//   const otp = Math.floor(100000 + Math.random() * 900000).toString();
+//   user.otp = otp;
+//   user.otpExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes
+//   user.newPassword = await bcrypt.hash(newPassword, 10); // temp password
 
-  await user.save();
+//   await user.save();
 
-  await sendEmail(email, "Your OTP for Password Reset", `Your OTP is: ${otp}`);
-  res.json({ message: "OTP sent to email" });
+//   await sendEmail(email, "Your OTP for Password Reset", `Your OTP is: ${otp}`);
+//   res.json({ message: "OTP sent to email" });
 
-  console.log("OTP Sent:", user.otp);
-  console.log("Expiry:", user.otpExpiry, Date.now());
-};
+//   console.log("OTP Sent:", user.otp);
+//   console.log("Expiry:", user.otpExpiry, Date.now());
+// };
 
-// Step 2: Verify OTP
-exports.verifyOtp = async (req, res) => {
-  const { email, otp } = req.body;
+// // Step 2: Verify OTP
+// exports.verifyOtp = async (req, res) => {
+//   const { email, otp } = req.body;
 
-  const user = await User.findOne({ email });
+//   const user = await User.findOne({ email });
 
-  console.log("New Password:", user?.newPassword);
+//   console.log("New Password:", user?.newPassword);
 
-  if (!user) return res.status(404).json({ message: 'User not found' });
+//   if (!user) return res.status(404).json({ message: 'User not found' });
 
-  if (!user.otp || user.otp !== otp || Date.now() > user.otpExpiry) {
-    return res.status(400).json({ message: 'Invalid or expired OTP' });
-  }
+//   if (!user.otp || user.otp !== otp || Date.now() > user.otpExpiry) {
+//     return res.status(400).json({ message: 'Invalid or expired OTP' });
+//   }
 
-  user.password = user.newPassword;
-  user.otp = null;
-  user.otpExpiry = null;
-  user.newPassword = null;
+//   user.password = user.newPassword;
+//   user.otp = null;
+//   user.otpExpiry = null;
+//   user.newPassword = null;
 
-  await user.save();
-  return res.json({ message: 'Password updated successfully' });
-};
+//   await user.save();
+//   return res.json({ message: 'Password updated successfully' });
+// };
