@@ -1,3 +1,4 @@
+// Login.jsx
 import { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -19,7 +20,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, formData);
+      const res = await axios.post(`https://ojas-backend.onrender.com/api/auth/login`, formData);
 
       // localStorage.setItem('username', res.data.fullName);
       // localStorage.setItem("email", res.data.email); 
