@@ -15,7 +15,7 @@ function ProfileUpdate() {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user/me`, {
+        const res = await axios.get(`https://ojas-backend.onrender.com/api/user/me`, {
           headers: {
             Authorization: `Bearer ${token}` // ✅ Send token in header
           }
