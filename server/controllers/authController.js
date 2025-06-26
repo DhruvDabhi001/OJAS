@@ -26,14 +26,6 @@ exports.signup = async (req, res) => {
 // Login Controller
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-if (email === "admin123@gmail.com" && password === "11") {
-      return res.status(200).json({
-        message: 'Admin login successful',
-        fullName: 'Admin',
-        email: email,
-        isAdmin: true,
-      });
-    }
   try {
     // ✅ Hardcoded admin login (no JWT)
     if (email === "admin123@gmail.com" && password === "11") {
