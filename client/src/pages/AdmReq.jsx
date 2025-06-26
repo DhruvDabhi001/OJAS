@@ -9,7 +9,7 @@ function AdmReq() {
 
   const fetchApplications = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/applications`);
+      const res = await axios.get(`https://ojas-backend.onrender.com/api/applications`);
       setApplications(res.data);
     } catch (err) {
       toast.error("Failed to fetch applications");
@@ -18,7 +18,7 @@ function AdmReq() {
 
   const handleStatusChange = async (id, newStatus) => {
     try {
-      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/application/${id}/status`, { status: newStatus });
+      await axios.put(`https://ojas-backend.onrender.com/api/application/${id}/status`, { status: newStatus });
       toast.success(`Marked as ${newStatus}`);
       fetchApplications();
     } catch (err) {

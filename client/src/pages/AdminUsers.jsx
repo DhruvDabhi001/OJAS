@@ -11,7 +11,7 @@ function Users() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user/users`, {
+      const res = await axios.get(`https://ojas-backend.onrender.com/api/user/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -27,7 +27,7 @@ function Users() {
   const handleDeleteUser = async (userId) => {
     if (!window.confirm("Are you sure to delete?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/user/${userId}`, {
+      await axios.delete(`https://ojas-backend.onrender.com/api/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

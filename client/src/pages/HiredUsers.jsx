@@ -10,7 +10,7 @@ function HiredUsers() {
   useEffect(() => {
     const fetchAccepted = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/accepted`);
+        const res = await axios.get(`https://ojas-backend.onrender.com/api/accepted`);
         setHiredUsers(res.data);
       } catch (err) {
         console.error(err);

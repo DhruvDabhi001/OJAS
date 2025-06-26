@@ -23,7 +23,7 @@ function Jobs() {
 
   const fetchJobs = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/jobs`);
+      const res = await axios.get(`https://ojas-backend.onrender.com/api/jobs`);
       setJobs(res.data);
       setLoading(false);
     } catch (error) {
@@ -37,7 +37,7 @@ function Jobs() {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/jobs/${jobId}`);
+      await axios.delete(`https://ojas-backend.onrender.com/api/jobs/${jobId}`);
       toast.success("Job deleted");
       fetchJobs(); // Refresh list
     } catch (error) {
@@ -65,7 +65,7 @@ function Jobs() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/jobs/${editJobId}`, editFormData);
+      await axios.put(`https://ojas-backend.onrender.com/api/jobs/${editJobId}`, editFormData);
       toast.success("Job updated");
       setEditJobId(null);
       fetchJobs();

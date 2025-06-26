@@ -14,7 +14,7 @@ function Jobs() {
     if (!token) return;
 
     try {
-      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/my-applications`, {
+      const res = await axios.get(`https://ojas-backend.onrender.com/api/my-applications`, {
         
         headers: {
           Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ function Jobs() {
       };
 
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/apply`,
+        `https://ojas-backend.onrender.com/api/apply`,
         applicationData,
         {
           headers: {
@@ -67,7 +67,7 @@ function Jobs() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/jobs`);
+        const res = await axios.get(`https://ojas-backend.onrender.com/api/jobs`);
         setJobs(res.data);
       } catch (err) {
         toast.error("Failed to fetch jobs");

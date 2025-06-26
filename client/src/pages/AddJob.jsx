@@ -26,7 +26,7 @@ function AddJob() {
     }
 
     try {
-      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/jobs/add`, jobData);
+      const res = await axios.post(`https://ojas-backend.onrender.com/api/jobs/add`, jobData);
       toast.success("Job added successfully");
       setJobData({ title: "", company: "", location: "",vacancies: "", salary: "", description: "" });
     } catch (error) {
