@@ -19,7 +19,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, formData);
+      const res = await axios.post('https://ojas-backend.onrender.com/login', formData);
 
       // localStorage.setItem('username', res.data.fullName);
       // localStorage.setItem("email", res.data.email); 
