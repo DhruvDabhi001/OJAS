@@ -14,13 +14,7 @@
   // Connect to MongoDB
   connectDB();
 
-  app.use(cors({
-    origin:[
-    "https://ojas-frontend.onrender.com",
-    "https://web.postman.co" // For Postman web
-  ],
-    credentials: true
-  }));
+  app.use(cors());
   app.use(express.json());
 
   // Routes
