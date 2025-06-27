@@ -65,51 +65,51 @@ exports.login = async (req, res) => {
 };
 
 // Step 1: Send OTP
-// exports.forgotPassword = async (req, res) => {
-//   try {
-//     const { email, newPassword } = req.body;
-//     const user = await User.findOne({ email });
+exports.forgotPassword = async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
+    const user = await User.findOne({ email });
 
-//     if (!user) return res.status(404).json({ message: 'User not found' });
+    if (!user) return res.status(404).json({ message: 'User not found' });
 
-//     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-//     user.otp = otp;
-//     user.otpExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes
-//     user.newPassword = await bcrypt.hash(newPassword, 10); // temp password
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    user.otp = otp;
+    user.otpExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes
+    user.newPassword = await bcrypt.hash(newPassword, 10); // temp password
 
-//     await user.save();
+    await user.save();
 
-//     await sendEmail(email, "Your OTP for Password Reset", `Your OTP is: ${otp}`);
-//     res.json({ message: "OTP sent to email" });
+    await sendEmail(email, "Your OTP for Password Reset", `Your OTP is: ${otp}`);
+    res.json({ message: "OTP sent to email" });
 
-//     console.log("OTP Sent:", user.otp);
-//     console.log("Expiry:", user.otpExpiry, Date.now());
-//   }
-//   catch (err) {
-//     console.error("Forgot Password Error:", err);
-//     res.status(500).json({ message: "Failed to send OTP", error: err.message });
-//   }
-// };
+    console.log("OTP Sent:", user.otp);
+    console.log("Expiry:", user.otpExpiry, Date.now());
+  }
+  catch (err) {
+    console.error("Forgot Password Error:", err);
+    res.status(500).json({ message: "Failed to send OTP", error: err.message });
+  }
+};
 
 // Step 2: Verify OTP
-// exports.verifyOtp = async (req, res) => {
-//   const { email, otp } = req.body;
+exports.verifyOtp = async (req, res) => {
+  const { email, otp } = req.body;
 
-//   const user = await User.findOne({ email });
+  const user = await User.findOne({ email });
 
-//   console.log("New Password:", user?.newPassword);
+  console.log("New Password:", user?.newPassword);
 
-//   if (!user) return res.status(404).json({ message: 'User not found' });
+  if (!user) return res.status(404).json({ message: 'User not found' });
 
-//   if (!user.otp || user.otp !== otp || Date.now() > user.otpExpiry) {
-//     return res.status(400).json({ message: 'Invalid or expired OTP' });
-//   }
+  if (!user.otp || user.otp !== otp || Date.now() > user.otpExpiry) {
+    return res.status(400).json({ message: 'Invalid or expired OTP' });
+  }
 
-//   user.password = user.newPassword;
-//   user.otp = null;
-//   user.otpExpiry = null;
-//   user.newPassword = null;
+  user.password = user.newPassword;
+  user.otp = null;
+  user.otpExpiry = null;
+  user.newPassword = null;
 
-//   await user.save();
-//   return res.json({ message: 'Password updated successfully' });
-// };
+  await user.save();
+  return res.json({ message: 'Password updated successfully' });
+};
